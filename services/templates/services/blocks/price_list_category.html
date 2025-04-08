@@ -1,0 +1,31 @@
+<section class="table-section">
+    <div class="table-group {% if opened %}opened{% endif %}">
+        <div class="table-group__title">
+            <svg viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5 8.39038L10 13.3904L15 8.39038" stroke="#2D2D2D" stroke-width="1.5" stroke-linecap="round"
+                      stroke-linejoin="round"></path>
+            </svg>
+            <span>{{ category.name }}</span>
+        </div>
+        <div class="table-group__body">
+            <table>
+                <thead>
+                <tr>
+                    {% for item in category.items.all() %}
+                    <th>
+                        <span>{{ item.name }}</span>
+                    </th>
+                    {% endfor %}
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    {% for item in category.items.all() %}
+                    <td>{{ item.price }}</td>
+                    {% endfor %}
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>

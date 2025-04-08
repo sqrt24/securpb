@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE yml_catalog SYSTEM "shops.dtd">
+<yml_catalog date="2025-02-02 09:52">
+    <shop>
+        <name>ПБ системы</name>
+        <company>ПБ системы</company>
+        <url>https://securpb.ru/</url>
+        <currencies>
+            <currency id="RUB" rate="1"/>
+        </currencies>
+        <categories>
+            {% for category in categories %}
+            <category id="{{ category.id }}">{{ category.name }}</category>
+            {% endfor %}
+        </categories>
+        <offers>
+            {% for item in items %}
+            <offer id="749" available="true">
+                <url>https://securpb.ru{{ item.get_absolute_url }}</url>
+                <price>{{ item.min_price }}</price>
+                <sales_notes>Бесплатный выезд и консультация</sales_notes>
+                <currencyId>RUB</currencyId>
+                <categoryId>{{ item.category_id }}</categoryId>
+                <picture>https://securpb.ru/static/icons/logo.svg</picture>
+                <delivery>true</delivery>
+                <name>{{ item.name }}</name>
+                <vendor>ПБ системы</vendor>
+                <vendorCode/>
+                <description>Помощь в оформлении документов, подключение ПАК Стрелец мониторинг, тетирование и
+                    настройка, техническое обслуживание
+                </description>
+            </offer>
+            {% endfor %}
+        </offers>
+    </shop>
+</yml_catalog>

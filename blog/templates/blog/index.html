@@ -1,0 +1,136 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+    <div class="blog container">
+        <div class="blog__title">
+            <div class="col-lg-3">
+                <h1>
+                    {% if current_category %}
+                        {{ current_category.name }}
+                    {% else %}
+                        Статьи
+                    {% endif %}
+                </h1>
+            </div>
+
+            <div class="col-lg-9">
+                <div class="input-group">
+                    <div class="input input_placeholder">
+                        <label class="search__label-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-search" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                            </svg>
+                        </label>
+                        <input name="search" placeholder="Поиск" type="email" autocomplete="off">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="articles__wrapper" id="main-filter-container">
+            <div class="col-lg-3">
+                <div class="sticky-block articles__left">
+                    <div class="headings">
+                        <div class="articles__left-title">Разделы</div>
+                        <div class="headings__wrapper">
+                            <div class="headings__item tab {% if not current_category %}active{% endif %}"
+                                 data-category="all" data-path="/blog/">
+                                <div class="headings__icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                         class="bi bi-arrow-left-short" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                              d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5"/>
+                                    </svg>
+                                </div>
+                                {% if not current_category %}
+                                    <span>Все</span>
+                                {% else %}
+                                    <a href="/blog/">Все</a>
+                                {% endif %}
+                            </div>
+                            {% for item in categories %}
+                                <div class="headings__item tab {% if current_category == item %}active{% endif %}"
+                                     data-category="{{ item.id }}" data-path="{{ item.get_absolute_url() }}">
+                                    {% if current_category == item %}
+                                        <span>{{ item.name }} ({{ item.articles_count }})</span>
+                                    {% else %}
+                                        <a href="{{ item.get_absolute_url() }}">{{ item.name }}
+                                            ({{ item.articles_count }})</a>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="subscription__form">
+                            <div class="subscription__title">
+                                Подписаться на новости копании
+                            </div>
+                            <form class="form needs-validation" method="POST" data-form-modal=""
+                                  data-success-modal="success-subscription"
+                                  enctype="multipart/form-data" data-action="/informer/subscription/">
+                                <div class="form__row">
+                                    <div class="input-group">
+                                        <div class="input input_placeholder">
+                                            <input name="email" placeholder="user@mail.ru" type="email" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form__row relative">
+                                    <button class="btn btn_primary btn_w100 btn_large" type="submit">
+                                        Подписаться
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    {% if request.project_settings.telegram_channel_link %}
+                        <div class="telegram__banner">
+                            <img src="/static/icons/tg.svg" alt="Telegram">
+                            <a href="{{ request.project_settings.telegram_channel_link }}"
+                               target="_blank"
+                               rel="nofollow">Наш телеграм-канал
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                          d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"/>
+                                </svg>
+                            </a>
+                        </div>
+                    {% endif %}
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-9">
+                <div class="articles__items-not-found">
+                    <span data-modal="callback">Ничего не найдено</span>
+                    <span>Вы можете подписаться на <span id="subscribe-focus-link">рассылку</span></span>
+                </div>
+                <div class="articles__items" itemtype="https://schema.org/ItemList" itemscope="">
+                    {% for item in articles %}
+                        <a class="articles__item" href="{{ item.get_absolute_url() }}"
+                           itemtype="https://schema.org/Article"
+                           itemprop="itemListElement" itemscope="">
+                            <meta itemprop="headline" content="{{ item.name }}">
+                            <meta itemprop="url" content="{{ item.get_absolute_url() }}">
+                            <meta itemprop="description" content="{{ item.category.name }} - {{ item.name }}">
+                            <div class="articles__item-img">
+                                <span class="articles__item-head">{{ item.category.name }}</span>
+                                <img itemprop="image" src="{{ item.get_image_url() }}" alt="{{ item.name }}">
+                            </div>
+                            <div class="articles__item-description">
+                        <span class="articles__item-description_title">
+                            <span itemprop="name">{{ item.name }}</span>
+                        </span>
+                                <span class="articles__item-date">
+                            {{ item.get_date() }}
+                        </span>
+                            </div>
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% include 'blocks/questions.html' %}
+
+{% endblock %}

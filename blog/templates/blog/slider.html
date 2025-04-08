@@ -1,0 +1,37 @@
+{% if articles %}
+<div class="container articles-slider section">
+    <div class="articles-slider__title section__title">
+        Читайте также
+        <a class="read-all__link" href="/blog/">Смотреть все
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                 class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                      d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"/>
+            </svg>
+        </a>
+    </div>
+    <div class="articles-slider__inner news-slider swiper">
+        <div class="articles-slider__items swiper-wrapper">
+            {% for item in articles %}
+            <a class="articles__item articles-slider__item swiper-slide" href="{{ item.get_absolute_url() }}">
+                <div class="articles__item-img">
+                    <span class="articles__item-head">{{ item.category.name }}</span>
+                    <img src="{{ item.get_image_url() }}" alt="{{ item.name }}">
+                </div>
+                <div class="articles__item-description">
+                        <span class="articles__item-description_title">
+                            <span>{{ item.name }}</span>
+                        </span>
+                    <span class="articles__item-date">
+                            {{ item.get_date() }}
+                        </span>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+    </div>
+</div>
+{% endif %}

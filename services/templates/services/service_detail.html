@@ -1,0 +1,145 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="service-detail" itemscope itemtype="http://schema.org/Product">
+    <div class="container">
+        <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+            <meta itemprop="priceValidUntil" content="{{ request.price_valid_until }}">
+            <meta itemprop="price" content="{{ service.min_price }}">
+            <meta itemprop="priceCurrency" content="RUB">
+            <link itemprop="availability" href="http://schema.org/InStock">
+        </div>
+        <div class="service-detail__top">
+            <div class="service-detail__info col-lg-8">
+                <div class="service-detail__title">
+                    <h1 itemprop="name">{{ seo_h1 or service.name }}</h1>
+                </div>
+                <div class="service-detail__short-description text-block" itemprop="description">
+                    {{ service.short_description|safe }}
+                </div>
+                <div class="service-detail__buttons">
+                    {% if service.min_price %}
+                    <span class="service-detail__price">
+                        от <span>{{ service.min_price }}</span> руб
+                    </span>
+                    {% endif %}
+                    <button class="service-detail__order-button" data-modal="order"
+                            data-service-name="{{ service.name }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-telephone-fill" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                  d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z"></path>
+                        </svg>
+                        <span>Заказать услугу</span>
+                    </button>
+                    {% if service.text %}
+                    <button class="service-detail__read-button" data-read-more>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-book" viewBox="0 0 16 16">
+                            <path d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783"/>
+                        </svg>
+                        <span>Читать подробнее</span>
+                    </button>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="service-detail__image col-lg-4 animated fadeInDown">
+                <img src="{{ service.category.get_icon_url() }}" class="svg-icon" itemprop="image"
+                     alt="{{ service.name }}">
+                <div class="service-detail__buttons">
+                    {% if service.min_price %}
+                    <span class="service-detail__price">
+                        от <span>{{ service.min_price }}</span> руб
+                    </span>
+                    {% endif %}
+                    <button class="service-detail__order-button" data-modal="order"
+                            data-service-name="{{ service.name }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-telephone-fill" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                  d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z"></path>
+                        </svg>
+                        <span>Заказать услугу</span>
+                    </button>
+                    {% if service.text %}
+                    <button class="service-detail__read-button" data-read-more>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-book" viewBox="0 0 16 16">
+                            <path d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783"/>
+                        </svg>
+                        <span>Читать подробнее</span>
+                    </button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="container">
+            {% for category in service.price_list_categories.all() %}
+                {% if loop.first %}
+                    {% with opened=True %}
+                        {% include 'services/blocks/price_list_category.html' %}
+                    {% endwith %}
+                {% else %}
+                    {% include 'services/blocks/price_list_category.html' %}
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+    {% include 'blocks/stats.html' %}
+
+    <div class="section container animated fadeInUp">
+        <div class="section__title">Сопутствующие и рекомендованные услуги
+        </div>
+        <div class="services-slider swiper">
+            <div class="services-slider__items swiper-wrapper">
+                {% for item in related_services %}
+                <div class="services-slider__item swiper-slide">
+                    <a class="services-slider__item-image" href="{{ item.get_absolute_url() }}">
+                        <img src="{{ item.category.get_icon_url() }}" alt="{{ item.name }}">
+                        <span class="services-slider__item-text">{{ item.name }}</span>
+                    </a>
+                    <button class="services-slider__item-button" data-modal="order" data-service-name="{{ item.name }}">
+                        <span>Подробнее</span>
+                    </button>
+                </div>
+                {% endfor %}
+                {% for item in slider_services %}
+                {% if item not in related_services %}
+                <div class="services-slider__item swiper-slide">
+                    <a class="services-slider__item-image" href="{{ item.get_absolute_url() }}">
+                        <img src="{{ item.category.get_icon_url() }}" alt="{{ item.name }}">
+                        <span class="services-slider__item-text">{{ item.name }}</span>
+                    </a>
+                    <button class="services-slider__item-button" data-modal="order" data-service-name="{{ item.name }}">
+                        <span>Подробнее</span>
+                    </button>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+        </div>
+    </div>
+
+    {% include 'services/blocks/steps.html' %}
+
+    <div class="section">
+        <div class="container">
+            <div class="text-block" data-read-more-target>
+                {{ service.text|safe }}
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+{% include 'blocks/questions.html' %}
+
+{% endblock %}

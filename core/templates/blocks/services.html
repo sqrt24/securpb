@@ -1,0 +1,34 @@
+{% if slider_services %}
+<div class="section container animated fadeInUp">
+    <div class="section__title">Предоставляем широкий спектр услуг
+        <a class="read-all__link" href="/services/">
+            <div class="read-all__wrapper">
+                Смотреть все
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                     class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                          d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"/>
+                </svg>
+            </div>
+        </a>
+    </div>
+    <div class="swiper services-slider">
+        <div class="services-slider__items swiper-wrapper">
+            {% for item in slider_services %}
+            <div class="services-slider__item swiper-slide">
+                <a class="services-slider__item-image" href="{{ item.get_absolute_url() }}">
+                    <img src="{{ item.category.get_icon_url() }}" alt="{{ item.name }}">
+                    <span class="services-slider__item-text">{{ item.name }}</span>
+                </a>
+                <button class="services-slider__item-button" data-modal="order" data-service-name="{{ item.name }}">
+                    <span>Подробнее</span>
+                </button>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+    </div>
+</div>
+{% endif %}

@@ -1,0 +1,117 @@
+<header class="header">
+    <div class="header__inner">
+        <div class="header__content container">
+            <div class="header__logo">
+                {% if request.path != '/' %}
+                    <a href="/" class="header__logo-link">
+                        <img src="/static/icons/logo.svg" alt="Логотип">
+                        <img class="logo__title" src="/static/icons/logo_.svg" alt="Логотип">
+                    </a>
+                {% else %}
+                    <span class="header__logo-link">
+                     <img src="/static/icons/logo.svg" alt="Логотип">
+                     <img class="logo__title" src="/static/icons/logo_.svg" alt="Логотип">
+                 </span>
+                {% endif %}
+            </div>
+            <div>
+                <div class="header__top">
+                    <div class="header__right">
+                        {% if request.project_settings.telegram_link %}
+                            <a class="header__item header__social-icon"
+                               href="{{ request.project_settings.telegram_link }}"
+                               target="_blank" rel="nofollow">
+                                <img src="/static/icons/tg.svg" alt="Telegram">
+                            </a>
+                        {% endif %}
+                        {% if request.project_settings.whatsapp_link %}
+                            <a class="header__item header__social-icon whatsapp-link"
+                               {% if request.project_settings.whatsapp_link_number %}
+                               data-number="{{ request.project_settings.whatsapp_link_number }}"
+                               {% endif %}
+                               href="{{ request.project_settings.whatsapp_link }}"
+                               target="_blank" rel="nofollow">
+                                <img src="/static/icons/wa.svg" alt="Whatsapp">
+                            </a>
+                        {% endif %}
+                        <div class="header__item header__item-email">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-envelope-fill" viewBox="0 0 16 16">
+                                <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414zM0 4.697v7.104l5.803-3.558zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586zm3.436-.586L16 11.801V4.697z"></path>
+                            </svg>
+                            <a href="mailto:{{ request.project_settings.email }}">
+                                {{ request.project_settings.email }}
+                            </a>
+                        </div>
+                        <div class="header__item header__item-phone">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-telephone-fill" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                      d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z"></path>
+                            </svg>
+                            <a href="tel:{{ request.project_settings.phone_href }}">
+                                {{ request.project_settings.phone }}
+                            </a>
+                        </div>
+                        <button class="button header__button" data-modal="fast-order">
+                            <span>Быстрый заказ</span>
+                        </button>
+                        {% if request.project_settings.telegram_link %}
+                            <a class="header__item-mobile"
+                               href="{{ request.project_settings.telegram_link }}"
+                               target="_blank" rel="nofollow">
+                                <img src="/static/icons/tg.svg" alt="Telegram">
+                            </a>
+                        {% endif %}
+                        {% if request.project_settings.whatsapp_link %}
+                            <a class="header__item-mobile whatsapp-link"
+                               {% if request.project_settings.whatsapp_link_number %}
+                               data-number="{{ request.project_settings.whatsapp_link_number }}"
+                               {% endif %}
+                               href="{{ request.project_settings.whatsapp_link }}"
+                               target="_blank" rel="nofollow">
+                                <img src="/static/icons/wa.svg" alt="Whatsapp">
+                            </a>
+                        {% endif %}
+                        <div class="header__item-mobile">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-telephone-fill" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                      d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z"></path>
+                            </svg>
+                        </div>
+                        <div class="header__item-mobile header__menu-button" data-modal="menu">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-list" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                      d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <div class="header__bottom">
+                    <div class="header__menu">
+                        <a class="header__menu-item" href="/contacts/">Контакты</a>
+                        <a class="header__menu-item" href="/blog/">Статьи</a>
+                        <div class="header__menu-item drop-menu">
+                            <a href="/services/">Услуги</a>
+                            <div class="drop-menu__content header__menu-sub">
+                                {% for item in header_categories %}
+                                    <a class="header__menu-link"
+                                       href="{{ item.get_absolute_url() }}">{{ item.name }}</a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <a class="header__menu-item" href="/price-list/">Прайс-лист</a>
+                        <div class="header__menu-item drop-menu">
+                            <a href="/about/">О компании</a>
+                            <div class="drop-menu__content header__menu-sub">
+                                <a class="header__menu-link" href="/contracts/">Типовой договор</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>

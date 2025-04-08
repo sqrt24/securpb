@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block title %}<title>{{ seo_title|safe }}</title>{% endblock %}
+    {% block seo_description %}
+    <meta name="description" content="{{ seo_description }}">
+    {% endblock %}
+    <meta property="og:url" content="{{ request.canonical }}">
+    {% block og_title %}
+    <meta property="og:title" content="{{ seo_title }}">
+    {% endblock %}
+    {% block og_description %}
+    <meta property="og:description" content="{{ seo_description }}">
+    {% endblock %}
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="ПБ Системы">
+    <meta property="og:image" content="/static/icons/logo.svg">
+    <link rel="canonical" href="{{ request.canonical }}">
+    {% if request.noindex %}
+    <meta name="robots" content="noindex">
+    <meta name="yandex" content="noindex">
+    {% endif %}
+    <link rel="stylesheet" type="text/css" href="/static/css/libs.css{{ static_version }}">
+    <link rel="stylesheet" type="text/css" href="/static/css/styles.css{{ static_version }}">
+    {% block extra_styles %}{% endblock %}
+    <link rel="icon" type="image/x-icon" sizes="any"
+          href="/static/icons/favicon.ico">
+    <link rel="icon" type="image/svg+xml"
+          href="/static/icons/logo-light.svg" sizes="any"
+          media="(prefers-color-scheme: light)">
+    <link rel="icon" type="image/svg+xml" sizes="any"
+          href="/static/icons/logo.svg"
+          media="(prefers-color-scheme: dark)">
+    <link rel="icon" type="image/svg+xml" sizes="any"
+          href="/static/icons/logo.svg">
+    <link rel="apple-touch-icon" type="image/svg+xml"
+          href="/static/icons/logo.svg">
+    <link rel="icon" type="image/png" sizes="any"
+          href="/static/icons/logo.png">
+    <script>
+        window.securpb = {
+            ym_id: 99037386,
+             csrfToken: '{{ csrf_token }}',
+            source: 'https://{{ request.get_host() }}{{ request.path }}',
+            refer: '{% if request.refer %}{{ request.refer }}{% endif %}'
+        }
+    </script>
+    {{ request.project_settings.html_head|safe }}
+</head>
+<body class="{% block body_class %}{% endblock %}">
+{{ request.project_settings.html_upper|safe }}
+{% include 'header.html' %}
+
+{% block breadcrumbs %}
+    {% if bc_data %}
+<div class="container">
+    <ul class="breadcrumbs" itemscope="" itemtype="http://schema.org/BreadcrumbList">
+        {% for breadcrumb in bc_data %}
+        <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
+            <meta itemprop="position" content="{{ loop.index }}">
+            {% if not loop.last %}
+            <a href="{{ breadcrumb.url }}" itemprop="item">
+                <span itemprop="name">{{ breadcrumb.name }}</span>
+            </a>
+            {% else %} {% if breadcrumb.ignore_seo_parameter %}
+            <span itemprop="name">{{ breadcrumb.name }}</span>
+            {% else %}
+            <span itemprop="name">{{ last_breadcrumb_name or breadcrumb.name }}</span>
+            {% endif %} {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+{% endblock %}
+
+{% block content %}{% endblock %}
+
+{% include 'footer.html' %}
+<div class="up-arrow-btn">
+    <div class="up-arrow-img" style="background-image:url('/static/icons/up-icon.svg');"></div>
+</div>
+<noindex>
+{% include 'modals.html' %}
+</noindex>
+
+<script src="/static/js/libs.js{{ static_version }}"></script>
+  <!-- Initialize Swiper -->
+<script src="/static/js/index.js{{ static_version }}"></script>
+<script>
+    var servicesSlider = new Swiper(".services-slider", {
+      grabCursor: true,
+      slidesPerView: "auto",
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+        dynamicBullets: true,
+        dynamicMainBullets: 3,
+      },
+      keyboard: {
+        enabled: true,
+      },
+      navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+    });
+     var relativeServicesSlider = new Swiper(".relative-services-slider", {
+      grabCursor: true,
+      slidesPerView: "auto",
+      pagination: {
+        el: ".swiper-pagination",
+        clickable: true,
+        dynamicBullets: true,
+        dynamicMainBullets: 3,
+      },
+      keyboard: {
+        enabled: true,
+      },
+    });
+     Fancybox.bind("[data-fancybox]", {
+    });
+</script>
+{{ request.project_settings.html_bottom|safe }}
+{% block extra_scripts %}{% endblock %}
+</body>
+</html>

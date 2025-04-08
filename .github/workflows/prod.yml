@@ -1,0 +1,54 @@
+name: PROD Deploy
+on:
+  workflow_call:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    name: Build securpb.ru
+
+    runs-on: [ self-hosted ]
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Check status of working repo [before] delete
+        run: git status
+
+      - name: Sync Release version to working directory
+        run: bash /root/actions-runner/scripts/clean-prod.sh
+        shell: bash
+
+      - name: Install requirements
+        run: |
+          cd /var/www/securpb.ru/
+          python3.12 -m venv /var/www/securpb.ru/venv
+          source /var/www/securpb.ru/venv/bin/activate
+          pip install -r /var/www/securpb.ru/requirements.txt
+
+      - name: Collect static
+        run: |
+          cd /var/www/securpb.ru/
+          source /var/www/securpb.ru/venv/bin/activate
+          python manage.py collectstatic --noinput
+          cd /var/www/securpb.ru/static/
+          find js/ -type f \
+              -name "*.js" ! -name "*.min.*" ! -name "vfs_fonts*" \
+              -exec echo {} \; \
+              -exec uglifyjs -o {}.min {} \; \
+              -exec rm {} \; \
+              -exec mv {}.min {} \;
+          find css/ -type f \
+              -name "*.css" ! -name "*.min.*" \
+              -exec echo {} \; \
+              -exec uglifycss --output {}.min {} \; \
+              -exec rm {} \; \
+              -exec mv {}.min {} \;
+
+      - name: Check status of working repo [after] delete
+        run: git status
+
+      - name: Restart Gunicorn  daemon
+        run: sudo supervisorctl restart securpb.ru-gunicorn securpb.ru-celery_worker securpb.ru-celery_beat

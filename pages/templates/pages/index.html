@@ -1,0 +1,59 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="hero-container section">
+    <div class="container hero-wrapper">
+        <div class="hero-content">
+            <h1>Пожарная безопасность под ключ</h1>
+            <p>Спроектируем, смонтируем согласно действующим нормам МЧС системы пожарной безопасности</p>
+            <div class="contact-form animated fadeInDown">
+                <h3>Оставьте данные, и мы свяжемся с вами</h3>
+                <form class="form needs-validation" method="POST" data-form-modal="" enctype="multipart/form-data"
+                      data-action="/informer/fast-order/">
+
+                    <div class="form__row">
+                        <div class="input-group">
+                            <span class="input-title">Ваше имя<span>*</span></span>
+                            <div class="input input_placeholder">
+                                <input name="name" placeholder="Иван Иванов" type="text" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form__row">
+                        <div class="input-group">
+                            <span class="input-title">Телефон<span>*</span></span>
+                            <div class="input input_placeholder">
+                                <input name="phone" placeholder="+7 (999) 999-99-99" type="tel" required>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-title">Email<span>*</span></span>
+                            <div class="input input_placeholder">
+                                <input name="email" placeholder="user@mail.ru" type="email">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form__row relative">
+                        <button class="btn btn_primary btn_w100 btn_large" type="submit">
+                            Отправить заявку
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="hero-image">
+            <span class="h1">Пожарная безопасность под ключ</span>
+            <img src="/static/icons/hero.svg" alt="Пожарная безопасность">
+        </div>
+    </div>
+</div>
+{% include 'blocks/mission.html' %}
+{% include 'blocks/banner.html' %}
+{% include 'blocks/success.html' %}
+{% include 'blocks/services.html' %}
+{% include 'blocks/faq.html' %}
+{% include 'blog/slider.html' %}
+{% include 'blocks/clients.html' %}
+{% include 'blocks/questions.html' %}
+
+{% endblock %}

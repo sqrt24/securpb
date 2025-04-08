@@ -1,0 +1,16 @@
+{% if clients %}
+<div class="section clients">
+	<div class="container">
+		<div class="clients__inner">
+			<div class="section__title">Нам доверяют</div>
+			<div class="clients__logos">
+				{% for item in clients %}
+				<div class="clients__logo">
+					<img src="{{ item.image.url }}" alt="{{ item.name }}" loading="lazy"/>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+</div>
+{% endif %}

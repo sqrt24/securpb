@@ -1,0 +1,126 @@
+<footer class="footer">
+    <div class="container">
+        <div class="footer__top-container" itemscope="" itemtype="https://schema.org/Organization">
+            <meta itemprop="name" content="ПБ Системы">
+            <meta itemprop="telephone" content="{{ request.project_settings.phone }}">
+            <meta itemprop="email" content="{{ request.project_settings.email }}">
+            <div class="footer__top-container_element">
+                <div class="footer__top-container_element-logo">
+                    {% if request.path != "/" %}
+                        <a href="/">
+                            <img itemprop="image" src="/static/icons/logo.svg" alt="Логотип">
+                        </a>
+                    {% else %}
+                        <span>
+                        <img itemprop="image" src="/static/icons/logo.svg" alt="Логотип">
+                    </span>
+                    {% endif %}
+                </div>
+                <a class="footer__top-container_element-address" href="{{ request.project_settings.ymaps_url }}"
+                   rel="nofollow" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                        <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6"></path>
+                    </svg>
+                    <span>Москва</span>
+                </a>
+            </div>
+            <div class="footer__top-container_element-two">
+                <div class="footer__top-container_element_content">
+                    <div class="footer__top-container_element_content-inner">
+                        <span class="footer__top-container_element-title">Информация</span>
+                        <a class="footer__top-container_element-item" href="/contacts/">Контакты</a>
+                        <a class="footer__top-container_element-item" href="/price-list/">Прайс-лист</a>
+                        <a class="footer__top-container_element-item" href="/about/">О компании</a>
+                        <a class="footer__top-container_element-item" href="/contracts/">Типовой договор</a>
+                        <a class="footer__top-container_element-item" href="/blog/">Статьи</a>
+                    </div>
+                    <div class="footer__top-container_element_content-inner">
+                        <a class="footer__top-container_element-title" href="/services/">Услуги</a>
+                        {% for item in footer_services %}
+                            <a class="footer__top-container_element-item" href="{{ item.get_absolute_url() }}">
+                                {{ item.name }}
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="footer__top-container_element_content" itemprop="address" itemscope=""
+                     itemtype="https://schema.org/PostalAddress">
+                    <meta itemprop="addressLocality" content="Москва">
+                    <meta itemprop="streetAddress" content="{{ request.project_settings.address }}">
+                    <div class="footer__top-container_element_content-inner social">
+                        <div class="footer__top-container_element-item">
+                            <span class="footer__top-container_element-title">Телефон</span>
+                            <a href="tel:{{ request.project_settings.phone_href }}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-telephone-fill" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                          d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z"></path>
+                                </svg>
+                                {{ request.project_settings.phone }}
+                            </a>
+                        </div>
+                        <div class="footer__top-container_element-item">
+                            <span class="footer__top-container_element-title">Email</span>
+                            <a href="mailto:{{ request.project_settings.email }}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-envelope-fill" viewBox="0 0 16 16">
+                                    <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414zM0 4.697v7.104l5.803-3.558zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586zm3.436-.586L16 11.801V4.697z"></path>
+                                </svg>
+                                {{ request.project_settings.email }}
+                            </a>
+                        </div>
+                        <div class="footer__top-container_element-item">
+                            <span class="footer__top-container_element-title">Режим работы</span>
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-clock-fill" viewBox="0 0 16 16">
+                                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z"></path>
+                                </svg>
+                                <span>
+                                {{ request.project_settings.schedule }}
+                            </span>
+                            </div>
+                        </div>
+                        <div class="footer__top-container_element-item">
+                            <span class="footer__top-container_element-title">Телеграм-канал</span>
+                            <a class="text-crimson" href="{{ request.project_settings.telegram_channel_link }}"
+                               target="_blank" rel="nofollow">{{ request.project_settings.telegram_channel_link.replace('https://', '') }}</a>
+                        </div>
+                        <div class="footer__top-container_element-item">
+                            <div class="footer__socials">
+                                {% if request.project_settings.telegram_link %}
+                                    <a class=""
+                                       href="{{ request.project_settings.telegram_link }}"
+                                       target="_blank" rel="nofollow">
+                                        <img src="/static/icons/tg.svg" alt="Telegram">
+                                    </a>
+                                {% endif %}
+                                {% if request.project_settings.whatsapp_link %}
+                                    <a class="whatsapp-link"
+                                            {% if request.project_settings.whatsapp_link_number %}
+                                       data-number="{{ request.project_settings.whatsapp_link_number }}"
+                                            {% endif %}
+                                       href="{{ request.project_settings.whatsapp_link }}"
+                                       target="_blank" rel="nofollow">
+                                        <img src="/static/icons/wa.svg" alt="Whatsapp">
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer__bottom-container">
+            <div class="footer__bottom-line">
+                <span>© {{ current_year }} ПБ Системы</span>
+                <a href="/privacy/" target="_blank">Политика обработки персональных данных</a>
+            </div>
+            <p class="footer__bottom-info">
+                Информация на сайте не является публичной офертой и носит ознакомительный характер.
+                Наличие, описание и цены уточняйте у менеджеров по телефону или в заявке.
+            </p>
+        </div>
+    </div>
+</footer>

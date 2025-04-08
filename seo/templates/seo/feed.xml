@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<yml_catalog>
+    <shop>
+        <categories>
+            {% for category in categories %}
+            <category id="{{ category.id }}">{{ category.name }}</category>
+            {% endfor %}
+        </categories>
+        <offers>
+            {% for item in items %}
+            <offer id="{{ item.id }}">
+                <name>{{ item.category.name }}: {{ item.name }}</name>
+                <vendor>{{ item.category.name }}</vendor>
+                <price>{{ item.integer_price }}</price>
+                <currencyId>RUB</currencyId>
+                <categoryId>{{ item.category_id }}</categoryId>
+                <url>https://securpb.ru/price-list/</url>
+            </offer>
+            {% endfor %}
+        </offers>
+    </shop>
+</yml_catalog>

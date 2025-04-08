@@ -1,0 +1,38 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="price-list">
+        <h1>Прайс-лист</h1>
+        <div class="input-group">
+            <div class="input input_placeholder">
+                <label class="search__label-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-search" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                    </svg>
+                </label>
+                <input name="search" placeholder="Поиск" type="email" autocomplete="off">
+            </div>
+        </div>
+        <div class="price-list__not-found">
+                <span data-modal="callback">Ничего не найдено</span>
+                <button class="price-list__not-found-btn" data-modal="callback">
+                    <span>Уточнить у менеджера</span>
+                </button>
+            </div>
+        <div class="price-list__wrapper">
+            {% for category in categories %}
+                {% if loop.first %}
+                    {% with opened=True %}
+                        {% include 'services/blocks/price_list_category.html' %}
+                    {% endwith %}
+                {% else %}
+                    {% include 'services/blocks/price_list_category.html' %}
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

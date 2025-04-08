@@ -1,0 +1,28 @@
+{% if faq %}
+<div class="section faq animated fadeInUp" itemscope itemtype="https://schema.org/FAQPage">
+    <div class="container">
+        <div class="section__title">Часто задаваемые вопросы</div>
+        {% for item in faq %}
+        <div class="faq__item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+            <meta itemprop="name" content="Как сделать заказ?">
+            <a class="tabs__question-elem accordion__low">
+                <div class="accordion-svg-plus">
+                    <div class="circle-plus active-side-bar">
+                        <div class="circle">
+                            <div class="horizontal transform-horizontal"></div>
+                            <div class="vertical transform-vertical"></div>
+                        </div>
+                    </div>
+                </div>
+                {{ item.question }}
+            </a>
+            <div class="tabs__answer-elem accordion-content__low"
+                 itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                <span itemprop="text">{{ item.answer }}</span>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+{% endif %}

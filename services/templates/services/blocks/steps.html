@@ -1,0 +1,26 @@
+{% if service.steps.all() %}
+<div class="service-steps section">
+    <div class="container">
+        <div class="service-steps__title section__title">
+            Порядок оказания услуги
+        </div>
+        <div class="service-steps__items">
+             {% for step in service.steps.all() %}
+            <div class="service-steps__item">
+                <div class="service-steps__item-icon">
+                    <div class="service-step__item-number">1</div>
+                </div>
+                <div class="service-steps__item-text">
+                    <div class="service-steps__item-title">
+                        {{ step.name }}
+                    </div>
+                    <div class="service-steps__item-description">
+                        {{ step.description }}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endif %}

@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="privacy">
+        <h1>Политика обработки персональных данных</h1>
+        <div class="privacy__text">
+            {{ request.project_settings.privacy_policy|safe }}
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

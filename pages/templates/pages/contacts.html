@@ -1,0 +1,157 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="contacts-page">
+        <h1>Контакты</h1>
+        <div class="contacts-row">
+            <div class="contacts-page__form contacts-row__item">
+                <div class="contacts-page__form-title">
+                    Обратный звонок
+                </div>
+                <form class="form needs-validation" method="POST" data-form-modal="" enctype="multipart/form-data"
+                      data-action="/informer/fast-order/">
+
+                    <div class="form__row">
+                        <div class="input-group">
+                            <span class="input-title">Ваше имя<span>*</span></span>
+                            <div class="input input_placeholder">
+                                <input name="name" placeholder="Иван Иванов" type="text" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form__row">
+                        <div class="input-group">
+                            <span class="input-title">Телефон<span>*</span></span>
+                            <div class="input input_placeholder">
+                                <input name="phone" placeholder="+7 (999) 999-99-99" type="tel" required>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-title">Email<span>*</span></span>
+                            <div class="input input_placeholder">
+                                <input name="email" placeholder="user@mail.ru" type="email">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form__row">
+                        <div class="input-group">
+                            <span class="input-title">Комментарий</span>
+                            <div class="input textarea">
+                                <textarea name="comment" placeholder=" " data-row="2"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form__row relative">
+                        <button class="btn btn_primary btn_w100 btn_large" type="submit">
+                            Отправить заявку
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="contacts-page__info contacts-row__item">
+                <div class="contacts-page__info-title">
+                </div>
+                <div class="contacts-page__info-items">
+                    <div class="contacts-page__info-item">
+                        <div class="contacts-page__info-subtitle">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                                <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6"/>
+                            </svg>
+                            <span>
+                            Адрес
+                        </span>
+                        </div>
+                        <span>
+                            {{ request.project_settings.address }}
+                        </span>
+                    </div>
+                    <div class="contacts-page__info-item">
+                        <div class="contacts-page__info-subtitle">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-clock-fill" viewBox="0 0 16 16">
+                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71z"/>
+                            </svg>
+                            <span>
+                                Режим работы
+                        </span>
+                        </div>
+                        <span>
+                            {{ request.project_settings.schedule }}
+                        </span>
+                    </div>
+                    <div class="contacts-page__info-item">
+                        <div class="contacts-page__info-subtitle">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-envelope-fill" viewBox="0 0 16 16">
+                                <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414zM0 4.697v7.104l5.803-3.558zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586zm3.436-.586L16 11.801V4.697z"/>
+                            </svg>
+                            <span>
+                                Email
+                            </span>
+                        </div>
+                        <a href="mailto:{{ request.project_settings.email }}">
+                            {{ request.project_settings.email }}
+                        </a>
+                    </div>
+                    <div class="contacts-page__info-item">
+                        <div class="contacts-page__info-subtitle">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-telephone-fill" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                      d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z"/>
+                            </svg>
+                            <span>Телефон</span>
+                        </div>
+                        <a href="tel:{{ request.project_settings.phone_href }}">
+                            {{ request.project_settings.phone }}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="contacts-row">
+            <div class="contacts-row__item">
+                <div class="contacts-page__info-items">
+                    <div id="map">
+                        <script type="text/javascript" charset="utf-8" async
+                                src="{{ request.project_settings.ymaps_widget_url }}"></script>
+                        <script>
+                            ymaps = window.ymaps;
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="contacts-row">
+            <div class="contacts-page__requisites contacts-row__item">
+                <div class="contacts-page__info-title">
+                    Реквизиты компании
+                </div>
+                <div class="requisites-items">
+                    <div class="requisites-item">
+                        <span>ИНН</span>
+                        <span>{{ request.project_settings.inn }}</span>
+                    </div>
+                    <div class="requisites-item">
+                        <span>КПП</span>
+                        <span>{{ request.project_settings.kpp }}</span>
+                    </div>
+                    <div class="requisites-item">
+                        <span>ОГРН</span>
+                        <span>{{ request.project_settings.ogrn }}</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+{% endblock %}
